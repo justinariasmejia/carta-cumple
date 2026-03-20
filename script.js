@@ -74,17 +74,16 @@ onValue(ref(db, 'config'), (snapshot) => {
     document.getElementById('dyn-spot-2').innerHTML = getSpotifyEmbed(saved.spot2 || defaultCfg.spot2);
     document.getElementById('dyn-spot-3').innerHTML = getSpotifyEmbed(saved.spot3 || defaultCfg.spot3);
 
-    // Toggle comments input
+    // Toggle comments retro window entirely
     const allowComments = saved.hasOwnProperty('allowComments') ? saved.allowComments : true;
-    const inputArea = document.querySelector('.input-area');
-    const guestTitle = document.querySelector('.retro-body .pixel-text');
-    if(inputArea && guestTitle) {
+    const retroWindow = document.querySelector('.retro-window');
+    
+    if(retroWindow) {
         if(!allowComments) {
-            inputArea.style.display = 'none';
-            guestTitle.textContent = "Las nubecitas de cariño flotan por aquí ☁️🐾";
+            retroWindow.style.display = 'none';
         } else {
-            inputArea.style.display = 'flex';
-            guestTitle.textContent = "¡Deja un mensajito de cumple! ☁️";
+            // Restore block
+            retroWindow.style.display = 'block';
         }
     }
 });
