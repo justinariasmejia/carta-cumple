@@ -113,6 +113,55 @@ const btnSend = document.getElementById('btn-send-comment');
 const inputName = document.getElementById('guest-name');
 const inputMsg = document.getElementById('guest-msg');
 
+function makeDraggable(el) {
+    let isDragging = false;
+    let startX, startY, initialLeft, initialTop;
+
+    el.style.touchAction = 'none'; // Prevent scrolling when dragging cloud on mobile
+
+    el.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        el.setPointerCapture(e.pointerId);
+        
+        el.style.transition = 'none';
+        el.style.animation = 'none'; // Pause floating
+        el.style.zIndex = 1000; // Bring to front
+        
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        const rect = el.getBoundingClientRect();
+        initialLeft = rect.left;
+        initialTop = rect.top + window.scrollY; // Accounts for page scroll
+        
+        // Convert to absolute px
+        el.style.left = initialLeft + 'px';
+        el.style.top = initialTop + 'px';
+        el.style.right = 'auto'; 
+        el.style.bottom = 'auto';
+    });
+
+    el.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        let dx = e.clientX - startX;
+        let dy = e.clientY - startY;
+        el.style.left = (initialLeft + dx) + 'px';
+        el.style.top = (initialTop + dy) + 'px';
+    });
+
+    const endDrag = (e) => {
+        if(!isDragging) return;
+        isDragging = false;
+        el.releasePointerCapture(e.pointerId);
+        el.style.transition = 'transform 0.2s';
+        el.style.animation = 'floatCloud 5s ease-in-out infinite alternate';
+        el.style.zIndex = 51; // Normal cloud hover index
+    };
+
+    el.addEventListener('pointerup', endDrag);
+    el.addEventListener('pointercancel', endDrag);
+}
+
 function renderCloud(name, msg) {
     const cloud = document.createElement('div');
     cloud.className = 'comment-cloud';
@@ -132,6 +181,9 @@ function renderCloud(name, msg) {
     
     cloud.innerHTML = `<div class="cloud-name">@${name}</div><div class="cloud-msg">${msg}</div>`;
     cloudContainer.appendChild(cloud);
+    
+    // Enable dragging
+    makeDraggable(cloud);
 }
 
 if(cloudContainer) {
