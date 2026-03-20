@@ -15,21 +15,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Extract Spotify Track ID
+// Extract Spotify Track ID robustly
 function getSpotifyEmbed(url) {
-    if(!url) return "<i>No hay canción configurada</i>";
-    let trackId = null;
+    if(!url || !url.trim()) return "";
     
-    if (url.includes('spotify.com/track/')) {
-        const parts = url.split('spotify.com/track/')[1];
-        trackId = parts.split('?')[0]; // Remove query params like ?si=...
-    } else if(url.includes('spotify:') && url.includes(':track:')) {
-        trackId = url.split(':track:')[1];
+    // Match standard URLs (including language prefixes like intl-es/)
+    let match = url.match(/spotify\.com\/.*(track|album|playlist|episode)\/([a-zA-Z0-9]+)/);
+    if(match) {
+        return `<iframe src="https://open.spotify.com/embed/${match[1]}/${match[2]}?utm_source=generator&theme=0" width="300" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
     }
     
-    if(!trackId) return "<i>Enlace Inválido</i>";
+    // Match URIs like spotify:track:ID
+    let uriMatch = url.match(/spotify:(track|album|playlist|episode):([a-zA-Z0-9]+)/);
+    if(uriMatch) {
+         return `<iframe src="https://open.spotify.com/embed/${uriMatch[1]}/${uriMatch[2]}?utm_source=generator&theme=0" width="300" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    }
 
-    return `<iframe src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0" width="300" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    return `<div style="color:red; font-size:0.8rem; padding: 20px;">Enlace de Spotify Inválido.<br>Usa 'Copiar enlace de canción'.</div>`;
 }
 
 // Default values
@@ -71,6 +73,20 @@ onValue(ref(db, 'config'), (snapshot) => {
     document.getElementById('dyn-spot-1').innerHTML = getSpotifyEmbed(saved.spot1 || defaultCfg.spot1);
     document.getElementById('dyn-spot-2').innerHTML = getSpotifyEmbed(saved.spot2 || defaultCfg.spot2);
     document.getElementById('dyn-spot-3').innerHTML = getSpotifyEmbed(saved.spot3 || defaultCfg.spot3);
+
+    // Toggle comments input
+    const allowComments = saved.hasOwnProperty('allowComments') ? saved.allowComments : true;
+    const inputArea = document.querySelector('.input-area');
+    const guestTitle = document.querySelector('.retro-body .pixel-text');
+    if(inputArea && guestTitle) {
+        if(!allowComments) {
+            inputArea.style.display = 'none';
+            guestTitle.textContent = "Las nubecitas de cariño flotan por aquí ☁️🐾";
+        } else {
+            inputArea.style.display = 'flex';
+            guestTitle.textContent = "¡Deja un mensajito de cumple! ☁️";
+        }
+    }
 });
 
 // Scroll Reveal Animation (Intersection Observer)
