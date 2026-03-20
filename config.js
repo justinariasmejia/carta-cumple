@@ -28,7 +28,8 @@ const fields = {
     gifFooter: document.getElementById('cfg-gif-footer'),
     spot1: document.getElementById('cfg-spot-1'),
     spot2: document.getElementById('cfg-spot-2'),
-    spot3: document.getElementById('cfg-spot-3')
+    spot3: document.getElementById('cfg-spot-3'),
+    allowComments: document.getElementById('cfg-allow-comments')
 };
 
 // Load existing config from Firebase into the form
@@ -50,6 +51,8 @@ onValue(ref(db, 'config'), (snapshot) => {
     fields.spot2.value = saved.spot2 || "";
     fields.spot3.value = saved.spot3 || "";
 
+    fields.allowComments.checked = saved.hasOwnProperty('allowComments') ? saved.allowComments : true;
+
     updatePreviews();
 }, { onlyOnce: true }); // Only fetch once for the form inputs
 
@@ -69,7 +72,8 @@ document.getElementById('config-form').addEventListener('submit', (e) => {
         gifFooter: fields.gifFooter.value,
         spot1: fields.spot1.value,
         spot2: fields.spot2.value,
-        spot3: fields.spot3.value
+        spot3: fields.spot3.value,
+        allowComments: fields.allowComments.checked
     };
 
     set(ref(db, 'config'), currentConfig)
