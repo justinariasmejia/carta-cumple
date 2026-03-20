@@ -1,0 +1,408 @@
+/* ==================================
+   VARIABLES GLOBALES & THEME (Coquette / Y2K / Snoopy Blue Pastel)
+   ================================== */
+:root {
+    --bg-color-1: #c1e1ec; /* Soft sky blue */
+    --bg-color-2: #90caf9; /* Vibrant sky blue */
+    --text-color: #2c3e50;
+    --paper-bg: rgba(255, 255, 255, 0.85);
+    --border-blue: #81d4fa;
+    --font-pixel: 'VT323', monospace;
+    --font-handwriting: 'Caveat', cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-color-1) 0%, var(--bg-color-2) 100%);
+    background-attachment: fixed;
+    color: var(--text-color);
+    font-family: sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    /* Cute dotted background pattern overlay */
+    background-image: radial-gradient(var(--border-blue) 1px, transparent 1px);
+    background-size: 20px 20px;
+    
+    /* Cute Blue Custom Cursor (Pointer) */
+    cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath fill='%2329b6f6' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round' d='M4,4 L20,11 L13,14 L10,21 Z' /%3E%3C/svg%3E") 4 4, auto;
+}
+
+/* Cute Blue Heart Cursor for Hover (Links/Buttons) */
+a, button, .retro-btn, .close-btn, input, textarea {
+    cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24'%3E%3Cpath fill='%2329b6f6' stroke='%23ffffff' stroke-width='2' stroke-linejoin='round' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") 14 14, pointer !important;
+}
+
+/* ==================================
+   CLOUDS BACKGROUND
+   ================================== */
+.bg-elements {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+.cloud {
+    position: absolute;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50px;
+    filter: blur(8px);
+    animation: drift 40s linear infinite;
+}
+.cloud-1 { width: 300px; height: 100px; top: 10%; left: -300px; animation-duration: 35s; }
+.cloud-2 { width: 250px; height: 80px; top: 50%; left: -250px; animation-duration: 25s; }
+.cloud-3 { width: 400px; height: 120px; top: 80%; left: -400px; animation-duration: 45s; }
+
+@keyframes drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(120vw); }
+}
+
+/* ==================================
+   CONTAINER SCRAPBOOK
+   ================================== */
+.scrapbook-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+}
+
+/* Typography */
+.pixel-text {
+    font-family: var(--font-pixel);
+    color: #1976d2; /* Deep blue */
+    text-shadow: 2px 2px 0px #fff;
+    font-size: 3rem;
+    text-align: center;
+}
+.handwritten {
+    font-family: var(--font-handwriting);
+    font-size: 1.8rem;
+    line-height: 1.5;
+    color: #34495e;
+}
+
+/* Header */
+.header-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.snoopy-hero {
+    width: 200px;
+    margin-top: -10px;
+    mix-blend-mode: multiply; /* Helps hide white borders in gifs if any */
+}
+
+/* ==================================
+   THE LETTER (Glass Paper inside)
+   ================================== */
+.letter-section {
+    position: relative;
+    width: 100%;
+}
+
+.glass-paper {
+    background: var(--paper-bg);
+    border: 2px dashed var(--border-blue);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    position: relative;
+}
+.glass-paper h2 {
+    font-family: var(--font-pixel);
+    font-size: 2rem;
+    color: #1976d2;
+    margin-bottom: 20px;
+    border-bottom: 2px dotted #81d4fa;
+    display: inline-block;
+}
+.letter-content p {
+    margin-bottom: 15px;
+}
+.signature-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 30px;
+}
+.signature {
+    font-weight: bold;
+    color: #1976d2;
+}
+
+/* The pin holding the letter */
+.pin {
+    width: 20px;
+    height: 20px;
+    background: #29b6f6;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: inset -3px -3px 5px rgba(0,0,0,0.2), 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.snoopy-side {
+    width: 120px;
+    z-index: 10;
+    mix-blend-mode: multiply;
+    margin-top: -10px; /* pulls it slightly upward toward the text */
+    margin-right: -20px; /* slight overflow for artistic scrapbook effect */
+}
+
+/* ==================================
+   INTERACTIVE RETRO WINDOW
+   ================================== */
+.interactive-box {
+    width: 100%;
+    max-width: 500px;
+}
+.retro-window {
+    background: #f0f0f0;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+.retro-header {
+    background: linear-gradient(90deg, #81d4fa, #29b6f6);
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+}
+.close-btn {
+    background: #d4d0c8;
+    border: 1px solid #fff;
+    border-right-color: #888;
+    border-bottom-color: #888;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0 5px;
+}
+.retro-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+}
+.snoopy-icon { width: 100px; mix-blend-mode: multiply; }
+
+.input-area {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+}
+.input-area input {
+    flex: 1;
+    padding: 8px;
+    border: 2px inset #ccc;
+    font-family: inherit;
+}
+.input-area button {
+    padding: 8px 15px;
+    background: #e0e0e0;
+    border: 2px outset #fff;
+    cursor: pointer;
+}
+.input-area button:active { border: 2px inset #ccc; }
+
+/* ==================================
+   PLAYLIST - SPOTIFY
+   ================================== */
+.playlist-section {
+    text-align: center;
+    width: 100%;
+}
+.playlist-section h3 { font-size: 2rem; margin-bottom: 20px; }
+.song-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.simple-player {
+    position: relative;
+    width: 210px;
+    height: 266px;
+    border-radius: 12px;
+    transition: transform 0.2s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    background: transparent;
+}
+.simple-player:hover {
+    transform: translateY(-10px);
+}
+.simple-player iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 300px;
+    height: 380px;
+    transform: scale(0.7);
+    transform-origin: top left;
+    border: none;
+}
+
+/* ==================================
+   GUESTBOOK CLOUDS (NUBECITAS)
+   ================================== */
+#clouds-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; /* Let clicks pass through to things behind clouds */
+    z-index: 50;
+    overflow: hidden;
+}
+
+.comment-cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px dashed #81d4fa;
+    border-radius: 40px;
+    padding: 15px 25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    max-width: 250px;
+    font-family: var(--font-handwriting);
+    color: #1976d2;
+    animation: floatCloud 5s ease-in-out infinite alternate;
+    pointer-events: auto; /* Allow hovering & clicking */
+    transition: transform 0.2s;
+}
+.comment-cloud:hover {
+    transform: scale(1.05);
+    z-index: 51;
+}
+.comment-cloud::after {
+    content: ''; 
+    position: absolute; 
+    bottom: -8px; 
+    left: 40px;
+    width: 15px; 
+    height: 15px; 
+    background: rgba(255, 255, 255, 0.95);
+    border-right: 2px dashed #81d4fa; 
+    border-bottom: 2px dashed #81d4fa;
+    border-radius: 0 0 10px 0; 
+    transform: rotate(45deg);
+}
+.cloud-name { 
+    font-family: var(--font-pixel); 
+    color: #0277bd; 
+    font-size: 1.5rem; 
+    margin-bottom: 5px; 
+    text-shadow: 1px 1px 0 #fff;
+}
+.cloud-msg { 
+    font-size: 1.4rem; 
+    line-height: 1.2; 
+}
+
+@keyframes floatCloud {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+/* ==================================
+   FOOTER
+   ================================== */
+.footer-section {
+    text-align: center;
+    margin-top: 20px;
+}
+.snoopy-footer {
+    width: 150px;
+    margin-top: 20px;
+    mix-blend-mode: multiply;
+}
+
+/* ==================================
+   ADMIN PANEL
+   ================================== */
+.admin-panel {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: rgba(129,212,250,0.8);
+    border: 2px dashed #29b6f6;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+}
+.retro-btn {
+    background: white;
+    border: 2px solid #29b6f6;
+    color: #1976d2;
+    padding: 5px 10px;
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+.retro-btn:hover { background: #29b6f6; color: white; }
+
+/* ==================================
+   ANIMATIONS 
+   ================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+.floating { animation: float 3s ease-in-out infinite; }
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.bounce { animation: bounce 2s infinite; }
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); }
+    60% { transform: translateY(-7px); }
+}
+
+.bouncing { animation: bouncing 2s infinite cubic-bezier(0.28, 0.84, 0.42, 1); }
+@keyframes bouncing {
+    0% { transform: scale(1, 1) translateY(0); }
+    10% { transform: scale(1.1, 0.9) translateY(0); }
+    30% { transform: scale(0.9, 1.1) translateY(-15px); }
+    50% { transform: scale(1.05, 0.95) translateY(0); }
+    57% { transform: scale(1, 1) translateY(-5px); }
+    64% { transform: scale(1, 1) translateY(0); }
+    100% { transform: scale(1, 1) translateY(0); }
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+    .scrapbook-container { padding: 20px 10px; }
+    .snoopy-side { position: static; right: 0; bottom: 0; margin-top: 20px; }
+    .pixel-text { font-size: 2.5rem; }
+    .handwritten { font-size: 1.5rem; }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños! | Carta Snoopy</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=VT323&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Floating Background Elements -->
+    <div class="bg-elements">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="scrapbook-container">
+
+        <!-- HEADER / TITLE -->
+        <header class="header-section fade-in">
+            <h1 class="pixel-text bounce" id="dyn-title">¡Feliz Cumpleaños!</h1>
+            <img src="https://media.giphy.com/media/8HqjtoyKrnfJC/giphy.gif" alt="Snoopy Principal" class="snoopy-hero"
+                id="dyn-gif-hero">
+        </header>
+
+        <!-- THE LETTER -->
+        <section class="letter-section fade-in">
+            <div class="glass-paper">
+                <div class="pin"></div>
+                <h2>Para una persona muy especial...</h2>
+                <div class="letter-content handwritten">
+                    <p id="dyn-greeting">Hola corazón,</p>
+                    <p id="dyn-body" style="white-space: pre-line;">Quería entregarte esta pequeña carta virtual...</p>
+                    <div class="signature-wrapper">
+                        <p class="signature" id="dyn-signature">Con amor, tu amig@</p>
+                        <img src="https://media.giphy.com/media/l41Ys1fQky5raqvMQ/giphy.gif" alt="Snoopy Decorativo"
+                            class="snoopy-side floating" id="dyn-gif-side">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE MESSAGE BOX -->
+        <section class="interactive-box fade-in">
+            <div class="retro-window">
+                <div class="retro-header">
+                    <span>mensaje.exe</span>
+                    <button class="close-btn">X</button>
+                </div>
+                <div class="retro-body">
+                    <img src="https://media.giphy.com/media/3o7WTq4w8w1hC3c97q/giphy.gif" alt="Snoopy Icono" class="snoopy-icon" id="dyn-gif-icon">
+                    <p class="pixel-text" style="color:#1e88e5; font-size: 2rem;">¡Deja un mensajito de cumple! ☁️</p>
+                    <div class="input-area" style="flex-direction: column; gap: 10px; width: 100%;">
+                        <input type="text" placeholder="Tu Nombre..." id="guest-name" style="width: 100%;">
+                        <textarea placeholder="Escribe tus deseos aquí..." id="guest-msg" rows="3" style="width: 100%; resize: none; border: 2px inset #ccc; font-family: inherit; padding: 8px;"></textarea>
+                        <button id="btn-send-comment" style="width: 100%;">Dejar mi nubecita</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MUSIC / PLAYLIST SECTION -->
+        <section class="playlist-section fade-in">
+            <h3 class="pixel-text">Un par de canciones para ti... 🎵</h3>
+            <div class="song-grid">
+                <!-- Player 1 -->
+                <div class="simple-player" id="dyn-spot-1"></div>
+                <!-- Player 2 -->
+                <div class="simple-player" id="dyn-spot-2"></div>
+                <!-- Player 3 -->
+                <div class="simple-player" id="dyn-spot-3"></div>
+            </div>
+        </section>
+
+        <!-- FINAL MESSAGE & DECORATION -->
+        <footer class="footer-section fade-in">
+            <p class="handwritten highlight-text" style="color:#0d47a1;" id="dyn-footer-msg">Gracias por existir. ¡Te
+                quiero muchísimo!</p>
+            <div class="footer-images">
+                <img src="https://media.giphy.com/media/xUPGcE5E6BteVlGz3a/giphy.gif" alt="Snoopy Despedida"
+                    class="snoopy-footer bouncing" id="dyn-gif-footer">
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Guestbook Clouds Container -->
+    <div id="clouds-container"></div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

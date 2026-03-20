@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración | Carta Snoopy</title>
+    <!-- We can reuse our styles to make it pretty, or use a clean admin CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { background: #e0f2fe; overflow-y: auto; padding: 20px; }
+        .admin-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px dashed #81d4fa;
+            color: #2c3e50;
+        }
+        h1 { font-family: 'VT323', monospace; color: #1976d2; font-size: 3rem; text-align: center; margin-bottom: 20px; }
+        .config-section {
+            border: 1px solid #b3e5fc;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .config-section h2 { font-family: 'VT323', monospace; color: #0277bd; font-size: 2rem; margin-bottom: 15px; border-bottom: 2px dotted #81d4fa; display: inline-block; }
+        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; }
+        label { font-weight: bold; font-family: sans-serif; font-size: 0.9rem; color: #0277bd; }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #b3e5fc;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: #0288d1; }
+        .btn-save {
+            background: #29b6f6;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .btn-save:hover { background: #0288d1; }
+        .btn-preview {
+            background: #fff;
+            color: #1976d2;
+            border: 2px solid #1976d2;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+        .btn-preview:hover { background: #1976d2; color: #fff; }
+        .preview-img { max-width: 120px; max-height: 120px; margin-top: 10px; border-radius: 10px; object-fit: contain; border: 1px dashed #ccc; display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <h1>🛠️ Creador de Cartas Snoopy</h1>
+        <p style="text-align:center; margin-bottom: 30px;">Edita los textos, fotos y canciones. ¡Todo se guardará en tu navegador para cuando abras la carta!</p>
+
+        <form id="config-form">
+            
+            <!-- TEXTOS -->
+            <div class="config-section">
+                <h2>📝 Textos de la Carta</h2>
+                <div class="form-group">
+                    <label>Título Principal</label>
+                    <input type="text" id="cfg-title" placeholder="Ej: ¡Feliz Cumpleaños!">
+                </div>
+                <div class="form-group">
+                    <label>Saludo en la Carta</label>
+                    <input type="text" id="cfg-greeting" placeholder="Ej: Hola corazón,">
+                </div>
+                <div class="form-group">
+                    <label>Cuerpo de la Carta</label>
+                    <textarea id="cfg-body" rows="6" placeholder="Escribe tu mensaje aquí... puedes usar saltos de línea."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Firma</label>
+                    <input type="text" id="cfg-signature" placeholder="Ej: Con amor, tu amig@">
+                </div>
+                <div class="form-group">
+                    <label>Mensaje Final (Footer)</label>
+                    <input type="text" id="cfg-footer-msg" placeholder="Ej: Gracias por existir. ¡Te quiero muchísimo!">
+                </div>
+            </div>
+
+            <!-- IMÁGENES & GIFS -->
+            <div class="config-section">
+                <h2>🐶 Fotos / GIFs de Snoopy</h2>
+                <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Busca GIFs en Giphy, copia la "Image Link" (.gif) y pégala aquí para reemplazarlos.</p>
+                
+                <div class="form-group">
+                    <label>Snoopy Principal (Arriba)</label>
+                    <input type="text" id="cfg-gif-hero" placeholder="Enlace del GIF (ej: https://media.giphy.com/media/.../giphy.gif)">
+                    <img id="prev-gif-hero" class="preview-img">
+                </div>
+                <div class="form-group">
+                    <label>Snoopy Decorativo (Costado de la carta)</label>
+                    <input type="text" id="cfg-gif-side" placeholder="Enlace del GIF">
+                    <img id="prev-gif-side" class="preview-img">
+                </div>
+                <div class="form-group">
+                    <label>Snoopy en Ventana Especial (Mensaje.exe)</label>
+                    <input type="text" id="cfg-gif-icon" placeholder="Enlace del GIF">
+                    <img id="prev-gif-icon" class="preview-img">
+                </div>
+                <div class="form-group">
+                    <label>Snoopy Despedida (Abajo)</label>
+                    <input type="text" id="cfg-gif-footer" placeholder="Enlace del GIF">
+                    <img id="prev-gif-footer" class="preview-img">
+                </div>
+            </div>
+
+            <!-- MÚSICA SPOTIFY COMPLETA -->
+            <div class="config-section">
+                <h2>🎵 Mixtape (Canciones Spotify)</h2>
+                <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Copia el enlace de Spotify de tus canciones favoritas (Ej: https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT).<br>El sistema extraerá la música automáticamente y aparecerá un disco girando en la página final.</p>
+                
+                <div style="display:flex; gap:15px;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Enlace Spotify 1</label>
+                        <input type="text" id="cfg-spot-1" placeholder="Enlace de Spotify...">
+                    </div>
+                </div>
+                
+                <div style="display:flex; gap:15px; margin-top:10px;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Enlace Spotify 2</label>
+                        <input type="text" id="cfg-spot-2" placeholder="Enlace de Spotify...">
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:15px; margin-top:10px;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Enlace Spotify 3</label>
+                        <input type="text" id="cfg-spot-3" placeholder="Enlace de Spotify...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- GESTIÓN DE NUBES -->
+            <div class="config-section" id="cloud-manager-section">
+                <h2>☁️ Gestión de Nubes (Mensajes)</h2>
+                <p style="font-size:0.8rem; color:#666; margin-bottom:10px;">Aquí puedes ver y borrar los mensajes que han dejado. Esta caja no la verá el cumpleañero.</p>
+                <div id="admin-comments-list" style="display:flex; flex-direction:column; gap:10px; padding: 10px; background:#f0f8ff; border:1px solid #b3e5fc; border-radius:5px; max-height:200px; overflow-y:auto;">
+                    <!-- Javascript populates -->
+                    <p style="text-align:center; color:#888;">No hay mensajes todavía.</p>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-save">💾 Guardar Configuración</button>
+            <a href="index.html" class="btn-preview">Ver Carta Final 👀</a>
+        </form>
+    </div>
+
+    <script type="module" src="config.js"></script>
+</body>
+</html>
